@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: neighbors-api
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/neighbors
+    username: admin
+    password: admin
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+springdoc:
+  api-docs.enabled: true
+  swagger-ui.path: /swagger-ui.html
