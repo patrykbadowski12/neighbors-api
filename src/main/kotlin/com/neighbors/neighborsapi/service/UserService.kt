@@ -1,34 +1,19 @@
 package com.neighbors.neighborsapi.service
 
-import com.neighbors.neighborsapi.model.User
 import com.neighbors.neighborsapi.repository.UserRepository
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.security.core.userdetails.User
 import org.springframework.stereotype.Service
-import kotlin.jvm.optionals.getOrElse
 
 @Service
 class UserService(
-    private val googleService: GoogleService,
     private val userRepository: UserRepository,
 ) {
-    fun findUserByUsername(email: String) =
-        userRepository
-            .findByEmail(email)
-            .getOrElse { throw Exception("User $email not found") }
+    private val logger: Logger = LoggerFactory.getLogger(UserService::class.java)
 
-    fun checkUserToken(token: String): User {
-        val payload = googleService.verifyGoogleToken(token).payload
-        return userRepository
-            .findByEmail(payload.email)
-            .orElseGet {
-                userRepository.save(
-                    User(
-                        email = payload.email,
-                        name = payload["name"] as String,
-                        givenName = payload["given_name"] as String,
-                        familyName = payload["family_name"] as String,
-                        profilePicture = payload["picture"] as String,
-                    ),
-                )
-            }
-    }
+    fun getUserInfo(user: User) =
+        userRepository
+            .findByEmail(user.username)
+            .orElseThrow { Exception("User with email: ${user.username} not found") }
 }

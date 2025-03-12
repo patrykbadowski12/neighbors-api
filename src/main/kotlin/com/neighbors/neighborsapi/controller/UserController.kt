@@ -1,10 +1,10 @@
 package com.neighbors.neighborsapi.controller
 
 import com.neighbors.neighborsapi.service.UserService
+import org.springframework.security.core.annotation.AuthenticationPrincipal
+import org.springframework.security.core.userdetails.User
 import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -14,11 +14,8 @@ import org.springframework.web.bind.annotation.RestController
 class UserController(
     private val userService: UserService,
 ) {
-    @PostMapping("/auth")
-    fun auth(
-        @RequestHeader("Authorization") token: String,
-    ) = userService.checkUserToken(token)
-
-    @GetMapping
-    fun getUser(email: String) = userService.findUserByUsername(email)
+    @GetMapping("/info")
+    fun getUserInfo(
+        @AuthenticationPrincipal user: User,
+    ) = userService.getUserInfo(user)
 }

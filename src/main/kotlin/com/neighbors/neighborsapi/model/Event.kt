@@ -14,9 +14,11 @@ data class Event(
     val name: String,
     val description: String,
     val dateFrom: LocalDateTime,
-    val dateTo: LocalDateTime?,
+    val dateTo: LocalDateTime,
     val maxParticipants: Int?,
     val type: EventStatus,
     val latitude: Double,
     val longitude: Double,
+    val placeName: String,
+    val placeId: String,
 )

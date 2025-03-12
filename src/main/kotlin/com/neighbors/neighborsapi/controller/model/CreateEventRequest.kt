@@ -13,11 +13,13 @@ data class CreateEventRequest(
     @field:Size(min = 10, max = 150, message = "Event should have 10-30 characters")
     val description: String,
     @field:NotNull(message = "Event start date cannot be null")
-    val dateFrom: LocalDateTime,
-    val dateTo: LocalDateTime,
+    val startTime: LocalDateTime,
+    val endTime: LocalDateTime,
     val maxParticipants: Int,
     @field:NotNull(message = "Event latitude cannot be null")
     val latitude: Double,
     @field:NotNull(message = "Event longitude cannot be null")
     val longitude: Double,
+    val placeName: String,
+    val placeId: String,
 )

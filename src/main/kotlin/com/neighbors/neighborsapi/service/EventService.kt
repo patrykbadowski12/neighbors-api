@@ -19,12 +19,14 @@ class EventService(
             id = null,
             name = request.name,
             description = request.description,
-            dateFrom = request.dateFrom,
-            dateTo = request.dateTo,
+            dateFrom = request.startTime,
+            dateTo = request.endTime,
             maxParticipants = request.maxParticipants,
             type = EventStatus.CREATED,
             latitude = request.latitude,
             longitude = request.longitude,
+            placeId = request.placeId,
+            placeName = request.placeName,
         ).run {
             eventRepository.save(this)
         }
